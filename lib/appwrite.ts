@@ -7,6 +7,7 @@ import {
   Databases,
   ID,
   Query,
+  Storage,
   TablesDB,
 } from "react-native-appwrite";
 
@@ -15,6 +16,7 @@ export const appwriteConfig = {
   projectId: process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID!,
   platform: "com.example.food",
   databaseId: process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID!,
+  bucketId: "68d472150036e7f91ca8",
 };
 
 export const client = new Client();
@@ -28,6 +30,7 @@ export const account = new Account(client);
 export const databases = new Databases(client);
 export const tablesDB = new TablesDB(client);
 export const avatars = new Avatars(client);
+export const storage = new Storage(client);
 
 export async function createUser({ name, email, password }: CreateUserParams) {
   try {
