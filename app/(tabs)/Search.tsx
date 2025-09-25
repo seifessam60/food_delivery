@@ -1,8 +1,10 @@
 import CartButton from "@/components/CartButton";
+import Filter from "@/components/Filter";
 import MenuCard from "@/components/MenuCard";
+import SearchBar from "@/components/SearchBar";
 import { getCategories, getMenu } from "@/lib/appwrite";
 import useAppwrite from "@/lib/useAppwrite";
-import { MenuItem } from "@/type";
+import { Category, MenuItem } from "@/type";
 import { useLocalSearchParams } from "expo-router";
 import React, { useEffect } from "react";
 import { FlatList, Text, View } from "react-native";
@@ -21,9 +23,9 @@ const Search = () => {
       limit: 6,
     },
   });
-  const { data: categories } = useAppwrite({
-    fn: getCategories,
-  });
+
+  const { data: categories } = useAppwrite({ fn: getCategories });
+
   useEffect(() => {
     refetch({ category, query, limit: 6 });
   }, [category, query]);
@@ -35,7 +37,7 @@ const Search = () => {
           const isFirstRightColItem = index % 2 === 0;
           return (
             <View
-              className={`flex-1 max-w-[48] ${!isFirstRightColItem ? "mt-10" : "mt-0"}`}
+              className={`flex-1 max-w-[48%] ${!isFirstRightColItem ? "mt-10" : "mt-0"}`}
             >
               <MenuCard item={item as unknown as MenuItem} />
             </View>
@@ -60,8 +62,9 @@ const Search = () => {
               </View>
               <CartButton />
             </View>
-            <Text>Search Input</Text>
-            <Text>Filter</Text>
+            <SearchBar />
+
+            <Filter categories={categories as unknown as Category[]} />
           </View>
         )}
         ListEmptyComponent={() => !loading && <Text>No Results</Text>}
