@@ -1,5 +1,5 @@
 import { images } from "@/constants";
-import useAuthStore from "@/lib/store/auth.store";
+import useAuthStore from "@/store/auth.store";
 import { TabBarIconProps } from "@/type";
 import { Redirect, Tabs } from "expo-router";
 import React from "react";

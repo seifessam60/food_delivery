@@ -1,4 +1,4 @@
-import { CreateUserParams, SignInParams } from "@/type";
+import { CreateUserParams, GetMenuParams, SignInParams } from "@/type";
 import { Alert } from "react-native";
 import {
   Account,
@@ -84,5 +84,33 @@ export async function getCurrentUser() {
 
     Alert.alert("Error", "Failed to fetch user");
     throw new Error(error as string);
+  }
+}
+
+export async function getMenu({ category, query }: GetMenuParams) {
+  try {
+    const queries: string[] = [];
+    if (category) queries.push(Query.equal("categories", [category]));
+    if (query) queries.push(Query.search("name", query));
+    const menu = await tablesDB.listRows({
+      databaseId: appwriteConfig.databaseId,
+      tableId: "menu",
+      queries,
+    });
+    return menu.rows;
+  } catch (error) {
+    throw new Error("Error fetching menu");
+  }
+}
+
+export async function getCategories() {
+  try {
+    const categories = await tablesDB.listRows({
+      databaseId: appwriteConfig.databaseId,
+      tableId: "categories",
+    });
+    return categories.rows;
+  } catch (error) {
+    throw new Error("Error fetching categories");
   }
 }
