@@ -1,6 +1,7 @@
 import CartButton from "@/components/CartButton";
 import { images, offers } from "@/constants";
 import cn from "clsx";
+import React from "react";
 import { Fragment } from "react";
 import {
   FlatList,
