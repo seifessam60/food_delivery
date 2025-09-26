@@ -1,4 +1,5 @@
 import { CreateUserParams, GetMenuParams, SignInParams } from "@/type";
+import { router } from "expo-router";
 import { Alert } from "react-native";
 import {
   Account,
@@ -62,8 +63,20 @@ export async function signIn({ email, password }: SignInParams) {
       email,
       password,
     });
+    if (!session) return Alert.alert("Error", "Failed to login");
+    return session;
   } catch (error) {
     Alert.alert("Error", "Failed to login");
+    throw new Error(error as string);
+  }
+}
+
+export async function logOut() {
+  try {
+    await account.deleteSession({ sessionId: "current" });
+    router.replace("/sign-in");
+  } catch (error) {
+    Alert.alert("Error", "Failed to logout");
     throw new Error(error as string);
   }
 }

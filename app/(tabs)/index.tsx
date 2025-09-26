@@ -2,7 +2,6 @@ import CartButton from "@/components/CartButton";
 import { images, offers } from "@/constants";
 import cn from "clsx";
 import React from "react";
-import { Fragment } from "react";
 import {
   FlatList,
   Image,
@@ -45,7 +44,7 @@ export default function Index() {
               android_ripple={{ color: "#fffff22" }}
             >
               {({ pressed }) => (
-                <Fragment>
+                <>
                   <View className="h-full w-1/2 ">
                     <Image
                       source={item.image}
@@ -69,7 +68,7 @@ export default function Index() {
                       tintColor={"#FFFFFF"}
                     />
                   </View>
-                </Fragment>
+                </>
               )}
             </Pressable>
           </View>
